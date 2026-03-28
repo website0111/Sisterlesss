@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTERLESS | Official Band Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #f8f8f8;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero-gradient {
+            background: linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 1)), 
+                        url('20250521_164624000_iOS.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .accent-border {
+            border-left: 4px solid #e11d48;
+        }
+        .btn-primary {
+            background-color: #e11d48;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #be123c;
+            transform: scale(1.05);
+        }
+        .band-logo-nav {
+            height: 40px;
+            width: auto;
+        }
+        .band-logo-hero {
+            max-width: 85%;
+            height: auto;
+            max-height: 250px;
+            filter: drop-shadow(0 0 15px rgba(225, 29, 72, 0.2));
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 px-6 py-3 flex justify-between items-center">
+        <a href="#home">
+            <img src="Sisterless_black_new.svg" alt="SISTERLESS Logo" class="band-logo-nav">
+        </a>
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-bold">
+            <a href="#home" class="hover:text-rose-600 transition">Home</a>
+            <a href="#music" class="hover:text-rose-600 transition">Musik</a>
+            <a href="#tour" class="hover:text-rose-600 transition">Live</a>
+            <a href="#contact" class="hover:text-rose-600 transition">Booking</a>
+        </div>
+        <button class="md:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">Menu</button>
+    </nav>
+
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-black z-40 flex flex-col items-center justify-center space-y-8 text-2xl uppercase font-bold md:hidden">
+        <a href="#home" onclick="this.parentElement.classList.add('hidden')">Home</a>
+        <a href="#music" onclick="this.parentElement.classList.add('hidden')">Musik</a>
+        <a href="#tour" onclick="this.parentElement.classList.add('hidden')">Live</a>
+        <a href="#contact" onclick="this.parentElement.classList.add('hidden')">Booking</a>
+    </div>
+
+    <section id="home" class="hero-gradient h-screen flex flex-col justify-center items-center text-center px-4">
+        <img src="Sisterless_black_new.svg" alt="SISTERLESS" class="band-logo-hero mb-8">
+        <p class="text-lg md:text-2xl font-light tracking-[0.3em] mb-10 opacity-90 uppercase italic text-rose-600">Modern Rock aus Leoben</p>
+        
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+            <a href="#music" class="btn-primary px-10 py-4 rounded-none font-bold tracking-widest text-white text-center uppercase">Zur neuen Single</a>
+            <a href="#tour" class="border border-white px-10 py-4 rounded-none font-bold tracking-widest hover:bg-white hover:text-black transition text-center uppercase">Upcoming Gigs</a>
+        </div>
+    </section>
+
+    <section id="music" class="py-24 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl mb-12 accent-border pl-4">Aktuelle Single</h2>
+        <div class="grid md:grid-cols-2 gap-12 items-center bg-white/5 p-8 rounded-lg border border-white/5">
+            <div>
+                <img src="AM-Cover.png" alt="SISTERLESS - AM Cover" class="shadow-2xl grayscale hover:grayscale-0 transition duration-1000 w-full aspect-square object-cover border border-white/10">
+            </div>
+            <div>
+                <h3 class="text-6xl mb-2 text-rose-600">AM</h3>
+                <p class="text-white mb-8 tracking-[0.2em] font-bold opacity-60 uppercase">Single | Out Now</p>
+                <a href="https://open.spotify.com/intl-de/artist/7CtxaODOpxaEMcJjYxisK4?si=p3ARtfcVQuC_ZOLnqfeBDw" target="_blank" class="flex items-center justify-center bg-white text-black px-10 py-4 font-bold hover:bg-rose-600 hover:text-white transition w-full tracking-widest uppercase">
+                    Auf Spotify hören
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tour" class="py-24 bg-[#0a0a0a]">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl mb-4 uppercase">Nächster Gig</h2>
+            <div class="w-20 h-1 bg-rose-600 mx-auto mb-12"></div>
+            
+            <div class="bg-white/5 border border-white/10 p-12 rounded-lg">
+                <p class="text-rose-500 font-bold tracking-[0.4em] text-xl mb-2">11. APRIL 2026</p>
+                <p class="text-5xl uppercase font-bold tracking-tight mb-2">TENNE</p>
+                <p class="text-gray-400 tracking-widest mb-6 uppercase">Area 53 Bandcontest</p>
+                <div class="h-[1px] bg-white/10 w-full mb-8"></div>
+                
+                <div class="flex flex-col items-center gap-6">
+                    <a href="https://checkout.bringticket.com/event/area-53-bandcontest-2026-b19709dc?btclid=cid_7Q6zcEmzjkMd0wF3YvUFDV" target="_blank" class="btn-primary px-12 py-4 font-bold tracking-widest text-white inline-block uppercase shadow-lg shadow-rose-600/20 w-full md:w-auto text-center">
+                        Tickets kaufen
+                    </a>
+
+                    <a href="kitzi.jpg" download="kitzi.jpg" class="border border-white/30 px-12 py-4 font-bold tracking-widest text-white/50 hover:text-rose-600 hover:border-rose-600 transition inline-block uppercase w-full md:w-auto">
+                        Kitzecker Sep
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-24 px-6 border-t border-white/10 text-center bg-black">
+        <img src="Sisterless_black_new.svg" alt="SISTERLESS" class="h-10 mx-auto mb-10 opacity-30">
+        <h2 class="text-xl mb-8 tracking-[0.4em] uppercase font-bold text-gray-500 text-center">Contact & Booking</h2>
+        
+        <a href="mailto:sisterless_band@icloud.com" class="text-xl md:text-4xl font-bold hover:text-rose-600 transition underline underline-offset-8 decoration-1 decoration-rose-600/30 break-all">
+            sisterless_band@icloud.com
+        </a>
+        
+        <div class="mt-20 flex justify-center gap-12 text-sm tracking-[0.2em] uppercase font-bold">
+            <a href="https://www.instagram.com/sisterless_official?igsh=dWgwbG8zbXZwdmo2&utm_source=qr" target="_blank" class="hover:text-rose-600 transition">Instagram</a>
+            <a href="https://open.spotify.com/intl-de/artist/7CtxaODOpxaEMcJjYxisK4?si=p3ARtfcVQuC_ZOLnqfeBDw" target="_blank" class="hover:text-rose-600 transition">Spotify</a>
+            <a href="#" class="hover:text-rose-600 transition">YouTube</a>
+        </div>
+        
+        <div class="mt-20 flex flex-col items-center">
+            <p class="text-[10px] text-gray-700 uppercase tracking-[8px]">© 2026 SISTERLESS | LEOBEN</p>
+        </div>
+    </footer>
+
+</body>
+</html>
