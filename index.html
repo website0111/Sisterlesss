@@ -95,26 +95,8 @@
     <section id="tour" class="py-32 bg-[#080808]">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-4xl mb-16 uppercase">Upcoming Gigs</h2>
-            <div class="space-y-6 text-left">
-
-                <div class="bg-white/5 p-8 flex flex-col md:flex-row justify-between items-center rounded-lg hover:border-rose-600 border border-transparent transition">
-                    <div>
-                        <p class="text-rose-500 font-bold uppercase tracking-widest">24. Oktober 2026</p>
-                        <p class="text-4xl font-bold uppercase">Art Inferno - Liezen</p>
-                        <p class="text-gray-500 text-sm uppercase">Sisterless Live</p>
-                    </div>
-                    <a href="https://bringticket.com/event/art-inferno-liezen-ae4b09d8" target="_blank" class="btn-primary px-10 py-3 text-white mt-4 md:mt-0">Tickets</a>
-                </div>
-
-                <div class="bg-white/5 p-8 flex flex-col md:flex-row justify-between items-center rounded-lg opacity-80 border border-transparent hover:border-white/20 transition">
-                    <div>
-                        <p class="text-rose-500 font-bold uppercase tracking-widest">26. November 2026</p>
-                        <p class="text-4xl font-bold uppercase">Club Wakuum</p>
-                        <p class="text-gray-500 text-sm uppercase">Live</p>
-                    </div>
-                    <span class="text-gray-500 uppercase font-bold tracking-widest">Live</span>
-                </div>
-
+            <div id="gig-liste" class="space-y-6 text-left">
+                <p class="text-gray-500 text-center">Lade Termine …</p>
             </div>
         </div>
     </section>
@@ -158,7 +140,10 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="sisterless.js"></script>
     <script>
+        ladeGigs(document.getElementById("gig-liste"));
         function acceptCookies() {
             localStorage.setItem('cookiesAccepted', 'true');
             document.getElementById('cookie-banner').style.display = 'none';

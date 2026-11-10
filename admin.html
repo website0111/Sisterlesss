@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>ADMIN | SISTERLESS</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0a0a0a; color: #f8f8f8; font-family: 'Inter', sans-serif; }
+        h1, h2 { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+        .btn-primary { background-color: #e11d48; transition: all 0.2s ease; font-family: 'Anton', sans-serif; letter-spacing: 1px; }
+        .btn-primary:hover { background-color: #be123c; }
+        .btn-primary:disabled { opacity: .5; cursor: wait; }
+        input, textarea { background: #151515; border: 1px solid rgba(255,255,255,.12); color: #fff; padding: .75rem 1rem; border-radius: .5rem; width: 100%; font-size: 16px; }
+        input:focus { outline: none; border-color: #e11d48; }
+        label { display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .2em; color: #9ca3af; font-weight: 700; margin-bottom: .35rem; }
+        .tab-aktiv { color: #fff; border-color: #e11d48; }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-4 flex justify-between items-center">
+        <a href="index.html"><img src="Sisterless_black_new.svg" alt="Logo" class="h-9"></a>
+        <div class="flex items-center gap-4">
+            <span id="wer" class="hidden md:inline text-xs text-gray-500"></span>
+            <button id="logout" class="hidden text-xs font-bold uppercase tracking-widest hover:text-rose-600 transition">Abmelden</button>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-20 px-4 max-w-3xl mx-auto">
+
+        <!-- Login -->
+        <section id="login" class="hidden max-w-md mx-auto text-center pt-10">
+            <h1 class="text-5xl mb-3">Admin</h1>
+            <p class="text-gray-400 mb-8">Gib deine E-Mail ein, du kriegst einen Login-Link.</p>
+            <form id="login-form" class="space-y-4 text-left">
+                <div><label for="email">E-Mail</label><input id="email" type="email" required autocomplete="email"></div>
+                <button class="btn-primary w-full py-4 text-white text-lg uppercase">Login-Link schicken</button>
+            </form>
+            <p id="login-msg" class="mt-6 text-sm"></p>
+        </section>
+
+        <!-- Bereich -->
+        <section id="bereich" class="hidden">
+            <div class="flex gap-6 border-b border-white/10 mb-10 text-sm font-bold uppercase tracking-widest">
+                <button data-tab="termine" class="tab pb-3 border-b-2 border-transparent text-gray-500 tab-aktiv">Termine</button>
+                <button data-tab="galerie" class="tab pb-3 border-b-2 border-transparent text-gray-500">Galerie</button>
+            </div>
+
+            <!-- Termine -->
+            <div id="tab-termine">
+                <form id="gig-form" class="bg-white/5 p-6 rounded-xl space-y-4 mb-10">
+                    <h2 id="gig-form-titel" class="text-2xl">Neuer Termin</h2>
+                    <input type="hidden" id="gig-id">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label for="gig-date">Datum *</label><input id="gig-date" type="date" required></div>
+                        <div><label for="gig-time">Uhrzeit</label><input id="gig-time" type="text" placeholder="z.B. 20:00"></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label for="gig-title">Location / Event *</label><input id="gig-title" required placeholder="z.B. Club Wakuum"></div>
+                        <div><label for="gig-city">Ort</label><input id="gig-city" placeholder="z.B. Leoben"></div>
+                    </div>
+                    <div><label for="gig-info">Zusatz</label><input id="gig-info" placeholder="z.B. Sisterless Live, mit XY"></div>
+                    <div><label for="gig-ticket">Ticket-Link</label><input id="gig-ticket" type="url" placeholder="https://…"></div>
+                    <div class="flex gap-3 pt-2">
+                        <button id="gig-save" class="btn-primary flex-1 py-3 text-white uppercase">Speichern</button>
+                        <button type="button" id="gig-cancel" class="hidden border border-white/30 px-6 font-bold uppercase text-sm tracking-widest hover:bg-white hover:text-black transition">Abbrechen</button>
+                    </div>
+                </form>
+                <p class="text-xs text-gray-500 mb-4 uppercase tracking-widest">Vergangene Termine werden automatisch gelöscht.</p>
+                <div id="gig-liste" class="space-y-3"></div>
+            </div>
+
+            <!-- Galerie -->
+            <div id="tab-galerie" class="hidden">
+                <label for="upload" class="cursor-pointer block bg-white/5 border-2 border-dashed border-white/20 hover:border-rose-600 transition rounded-xl p-10 text-center mb-4" style="letter-spacing:normal;text-transform:none;font-size:1rem;color:#fff">
+                    <span class="text-3xl block mb-2">＋</span>
+                    <span class="font-bold">Bilder hinzufügen</span><br>
+                    <span class="text-gray-500 text-sm">Mehrere auf einmal gehen auch</span>
+                </label>
+                <input id="upload" type="file" accept="image/*" multiple class="hidden">
+                <p id="upload-msg" class="text-sm text-gray-400 mb-6 min-h-[1.25rem]"></p>
+                <div id="bild-liste" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+            </div>
+        </section>
+
+        <p id="fehler" class="hidden mt-6 p-4 rounded-lg bg-rose-900/40 border border-rose-600 text-sm"></p>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="sisterless.js"></script>
+    <script>
+    const $ = (id) => document.getElementById(id);
+    let gigs = [], bilder = [];
+
+    function fehler(msg) { const f = $("fehler"); f.textContent = msg; f.classList.toggle("hidden", !msg); if (msg) f.scrollIntoView({ behavior: "smooth", block: "center" }); }
+
+    // ---------- Login ----------
+    async function start() {
+        const { data: { session } } = await sb.auth.getSession();
+        zeige(session);
+        sb.auth.onAuthStateChange((_e, s) => zeige(s));
+    }
+    let geladen = false;
+    async function zeige(session) {
+        $("login").classList.toggle("hidden", !!session);
+        $("bereich").classList.toggle("hidden", !session);
+        $("logout").classList.toggle("hidden", !session);
+        $("wer").textContent = session ? session.user.email : "";
+        if (session && !geladen) {
+            geladen = true;
+            const { data: ok } = await sb.rpc("sl_is_admin");
+            if (!ok) { fehler("Diese E-Mail ist nicht als Admin freigeschaltet."); return; }
+            ladeAdminGigs(); ladeAdminBilder();
+        }
+        if (!session) geladen = false;
+    }
+    $("login-form").onsubmit = async (e) => {
+        e.preventDefault();
+        const btn = e.submitter; btn.disabled = true;
+        const { error } = await sb.auth.signInWithOtp({
+            email: $("email").value.trim(),
+            options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname },
+        });
+        btn.disabled = false;
+        $("login-msg").innerHTML = error
+            ? '<span class="text-rose-500">Das hat net geklappt. Is die E-Mail als Admin angelegt?</span>'
+            : '<span class="text-green-400">Link ist unterwegs, schau in dein Postfach und tipp drauf.</span>';
+    };
+    $("logout").onclick = () => sb.auth.signOut();
+
+    // ---------- Tabs ----------
+    document.querySelectorAll(".tab").forEach((t) => t.onclick = () => {
+        document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("tab-aktiv", x === t));
+        $("tab-termine").classList.toggle("hidden", t.dataset.tab !== "termine");
+        $("tab-galerie").classList.toggle("hidden", t.dataset.tab !== "galerie");
+    });
+
+    // ---------- Termine ----------
+    async function ladeAdminGigs() {
+        const { data, error } = await sb.from("sl_gigs").select("*").gte("date", heuteWien()).order("date");
+        if (error) return fehler("Termine laden: " + error.message);
+        gigs = data;
+        $("gig-liste").innerHTML = data.length ? data.map((g) => `
+            <div class="bg-white/5 p-4 rounded-lg flex items-center justify-between gap-4">
+                <div class="min-w-0">
+                    <p class="text-rose-500 font-bold text-sm uppercase tracking-widest">${datumLang(g.date)}${g.time ? " · " + esc(g.time) : ""}</p>
+                    <p class="font-bold text-lg truncate">${esc([g.title, g.city].filter(Boolean).join(" - "))}</p>
+                    <p class="text-gray-500 text-xs truncate">${esc(g.info || "")}${g.ticket_url ? " · 🎟 Ticket-Link" : ""}</p>
+                </div>
+                <div class="flex gap-2 shrink-0">
+                    <button onclick="bearbeiteGig('${g.id}')" class="px-3 py-2 text-xs font-bold uppercase border border-white/20 rounded hover:bg-white hover:text-black transition">Ändern</button>
+                    <button onclick="loescheGig('${g.id}')" class="px-3 py-2 text-xs font-bold uppercase border border-rose-600 text-rose-500 rounded hover:bg-rose-600 hover:text-white transition">Löschen</button>
+                </div>
+            </div>`).join("")
+            : '<p class="text-gray-500">Noch keine kommenden Termine.</p>';
+    }
+    function formLeeren() {
+        $("gig-form").reset(); $("gig-id").value = "";
+        $("gig-form-titel").textContent = "Neuer Termin"; $("gig-cancel").classList.add("hidden");
+    }
+    window.bearbeiteGig = (id) => {
+        const g = gigs.find((x) => x.id === id); if (!g) return;
+        $("gig-id").value = g.id; $("gig-date").value = g.date; $("gig-time").value = g.time || "";
+        $("gig-title").value = g.title; $("gig-city").value = g.city || ""; $("gig-info").value = g.info || "";
+        $("gig-ticket").value = g.ticket_url || "";
+        $("gig-form-titel").textContent = "Termin ändern"; $("gig-cancel").classList.remove("hidden");
+        $("gig-form").scrollIntoView({ behavior: "smooth" });
+    };
+    $("gig-cancel").onclick = formLeeren;
+    window.loescheGig = async (id) => {
+        const g = gigs.find((x) => x.id === id);
+        if (!confirm(`Termin „${g?.title}" am ${g ? datumLang(g.date) : ""} löschen?`)) return;
+        const { error } = await sb.from("sl_gigs").delete().eq("id", id);
+        if (error) return fehler("Löschen: " + error.message);
+        fehler(""); ladeAdminGigs();
+    };
+    $("gig-form").onsubmit = async (e) => {
+        e.preventDefault();
+        if ($("gig-date").value < heuteWien()) return fehler("Das Datum liegt in der Vergangenheit.");
+        const row = {
+            date: $("gig-date").value,
+            time: $("gig-time").value.trim() || null,
+            title: $("gig-title").value.trim(),
+            city: $("gig-city").value.trim() || null,
+            info: $("gig-info").value.trim() || null,
+            ticket_url: $("gig-ticket").value.trim() || null,
+        };
+        $("gig-save").disabled = true;
+        const id = $("gig-id").value;
+        const { error } = id ? await sb.from("sl_gigs").update(row).eq("id", id) : await sb.from("sl_gigs").insert(row);
+        $("gig-save").disabled = false;
+        if (error) return fehler("Speichern: " + error.message);
+        fehler(""); formLeeren(); ladeAdminGigs();
+    };
+
+    // ---------- Galerie ----------
+    async function ladeAdminBilder() {
+        const { data, error } = await sb.from("sl_gallery").select("*").order("sort").order("created_at", { ascending: false });
+        if (error) return fehler("Galerie laden: " + error.message);
+        bilder = data;
+        $("bild-liste").innerHTML = data.length ? data.map((b, i) => `
+            <div class="relative group aspect-[3/4] rounded-lg overflow-hidden bg-zinc-900">
+                <img src="${esc(b.url)}" loading="lazy" class="w-full h-full object-cover">
+                <div class="absolute inset-x-0 bottom-0 p-2 flex gap-1 bg-gradient-to-t from-black/90 to-transparent pt-8">
+                    <button onclick="schiebe(${i},-1)" ${i === 0 ? "disabled" : ""} class="flex-1 py-2 text-xs font-bold bg-white/10 rounded disabled:opacity-30" title="Nach vorne">◀</button>
+                    <button onclick="schiebe(${i},1)" ${i === data.length - 1 ? "disabled" : ""} class="flex-1 py-2 text-xs font-bold bg-white/10 rounded disabled:opacity-30" title="Nach hinten">▶</button>
+                    <button onclick="loescheBild('${b.id}')" class="flex-1 py-2 text-xs font-bold bg-rose-600 rounded" title="Löschen">✕</button>
+                </div>
+            </div>`).join("")
+            : '<p class="text-gray-500 col-span-full">Noch keine Bilder.</p>';
+    }
+
+    // Bild vor dem Hochladen verkleinern (max. 2000 px), spart Speicher und lädt schneller
+    async function verkleinere(file) {
+        const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+        const max = 2000, f = Math.min(1, max / Math.max(bmp.width, bmp.height));
+        const c = document.createElement("canvas");
+        c.width = Math.round(bmp.width * f); c.height = Math.round(bmp.height * f);
+        c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+        return await new Promise((r) => c.toBlob(r, "image/jpeg", 0.85));
+    }
+
+    $("upload").onchange = async (e) => {
+        const files = [...e.target.files]; e.target.value = "";
+        if (!files.length) return;
+        fehler("");
+        let minSort = bilder.length ? Math.min(...bilder.map((b) => b.sort)) : 0;
+        let ok = 0;
+        for (const [i, file] of files.entries()) {
+            $("upload-msg").textContent = `Lade hoch ${i + 1} von ${files.length} …`;
+            try {
+                const blob = await verkleinere(file);
+                const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`;
+                const up = await sb.storage.from("sisterless").upload(path, blob, { contentType: "image/jpeg", cacheControl: "31536000" });
+                if (up.error) throw up.error;
+                const url = sb.storage.from("sisterless").getPublicUrl(path).data.publicUrl;
+                const ins = await sb.from("sl_gallery").insert({ url, storage_path: path, sort: --minSort });
+                if (ins.error) throw ins.error;
+                ok++;
+            } catch (err) {
+                fehler(`„${file.name}" ging net: ${err.message || err}`);
+            }
+        }
+        $("upload-msg").textContent = ok ? `${ok} Bild${ok > 1 ? "er" : ""} hinzugefügt ✓` : "";
+        ladeAdminBilder();
+    };
+
+    window.loescheBild = async (id) => {
+        const b = bilder.find((x) => x.id === id);
+        if (!confirm("Dieses Bild aus der Galerie löschen?")) return;
+        const { error } = await sb.from("sl_gallery").delete().eq("id", id);
+        if (error) return fehler("Löschen: " + error.message);
+        if (b?.storage_path) await sb.storage.from("sisterless").remove([b.storage_path]);
+        fehler(""); ladeAdminBilder();
+    };
+
+    window.schiebe = async (i, dir) => {
+        const j = i + dir; if (j < 0 || j >= bilder.length) return;
+        const neu = [...bilder]; [neu[i], neu[j]] = [neu[j], neu[i]];
+        const res = await Promise.all(neu.map((b, k) => b.sort === k ? null : sb.from("sl_gallery").update({ sort: k }).eq("id", b.id)));
+        const err = res.find((r) => r?.error);
+        if (err) fehler("Reihenfolge: " + err.error.message);
+        ladeAdminBilder();
+    };
+
+    start();
+    </script>
+</body>
+</html>
